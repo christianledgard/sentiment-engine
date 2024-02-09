@@ -5,11 +5,7 @@ import {
   LanguageCode,
 } from "@aws-sdk/client-comprehend";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { env } from "~/env";
 import { TRPCError } from "@trpc/server";
 
@@ -79,11 +75,11 @@ export const feedbackRouter = createTRPCRouter({
       }
     }),
 
-  getAllFeedback: protectedProcedure.query(({ ctx }) => {
+  getAllFeedback: publicProcedure.query(({ ctx }) => {
     return ctx.db.feedback.findMany();
   }),
 
-  deleteFeedbackById: protectedProcedure
+  deleteFeedbackById: publicProcedure
     .input(
       z.object({
         id: z.number(),
