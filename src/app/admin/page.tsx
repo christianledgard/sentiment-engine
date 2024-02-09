@@ -63,22 +63,31 @@ const SentimentAnalysis = () => {
                   <TableCell>{feedback.email}</TableCell>
                   <TableCell>{feedback.message}</TableCell>
                   <TableCell>
+                    <b>{feedback.sentimentResult}</b>
                     <ul className="list-disc">
                       <li>
-                        Positive Sentiment:{" "}
+                        😃{" "}
                         {feedback.sentimentPositive == null
                           ? "n/a"
-                          : Number(feedback.sentimentPositive)
-                              .toFixed(4)
-                              .toString()}
+                          : (Number(feedback.sentimentPositive) * 100)
+                              .toFixed(2)
+                              .toString() + "%"}
                       </li>
                       <li>
-                        Negative Sentiment:{" "}
+                        😐{" "}
+                        {feedback.sentimentNeutral == null
+                          ? "n/a"
+                          : (Number(feedback.sentimentNeutral) * 100)
+                              .toFixed(2)
+                              .toString() + "%"}
+                      </li>
+                      <li>
+                        😡{" "}
                         {feedback.sentimentNegative == null
                           ? "n/a"
-                          : Number(feedback.sentimentNegative)
-                              .toFixed(4)
-                              .toString()}
+                          : (Number(feedback.sentimentNegative) * 100)
+                              .toFixed(2)
+                              .toString() + "%"}
                       </li>
                     </ul>
                   </TableCell>
