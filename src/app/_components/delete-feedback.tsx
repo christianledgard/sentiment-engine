@@ -33,7 +33,7 @@ export const DeleteFeedback = ({
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onSuccess: () => {
               refetch();
-              toast.success("Eliminado correctamente");
+              toast.success("Deleted correcly");
             },
           },
         )
