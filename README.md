@@ -1,12 +1,10 @@
-# Create T3 App
+# Sentiment Engine
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+You can find the project deployed at [sentiment-engine.vercel.app](https://sentiment-engine.vercel.app/). Also, you can access the administrative panel at the [/admin](https://sentiment-engine.vercel.app/admin/) route.
 
-## What's next? How do I make an app with this?
+## Technologies
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
-
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+This project is based on [T3 Stack](https://create.t3.gg/). It uses the following technologies:
 
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
@@ -14,15 +12,19 @@ If you are not familiar with the different technologies used in this project, pl
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 
-## Learn More
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Run the project
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+1. Install the dependencies:
+```bash
+npm install
+```
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+2. Define the environment variables. See [.env.example](.env.example) for the template.
+3. Run the project
+```bash
+npm run dev
+```
 
-## How do I deploy this?
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+NOTE: You will need to have a PostgreSQL database and an AWS account with permissions to interact with the [ComprehendClient API](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-comprehend/).

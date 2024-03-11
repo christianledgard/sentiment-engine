@@ -17,11 +17,16 @@ export default async function Home() {
           {session && (
             <span className="mr-4">Logged in as {session.user?.name}</span>
           )}
-          <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
-            <Button variant="outline">
-              {session ? "Sign out" : "Sign in"}
-            </Button>
-          </Link>
+          <div className="space-x-2">
+            <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
+              <Button variant="outline">
+                {session ? "Sign out" : "Sign in"}
+              </Button>
+            </Link>
+            <Link href={"/admin"}>
+              <Button variant="outline">{"Admin"}</Button>
+            </Link>
+          </div>
         </div>
       </header>
       <main className="flex flex-1 items-center justify-center p-4">

@@ -79,6 +79,23 @@ export const feedbackRouter = createTRPCRouter({
     return ctx.db.feedback.findMany();
   }),
 
+  sentimentAggregation: publicProcedure.query(async ({ ctx }) => {
+    const feedback = await ctx.db.feedback.groupBy({
+      by: ["sentimentResult"],
+      _count: {
+        sentimentResult: true,
+      },
+    });
+    return feedback
+      .map((feedback_1) => {
+        return {
+          name: feedback_1.sentimentResult ?? "n/a",
+          count: feedback_1._count.sentimentResult,
+        };
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }),
+
   deleteFeedbackById: publicProcedure
     .input(
       z.object({

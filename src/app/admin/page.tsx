@@ -20,9 +20,7 @@ const SentimentAnalysis = () => {
 
   return (
     <>
-      <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
-        <h1 className="text-2xl font-bold">Sentiment Analysis</h1>
-      </header>
+      <h2 className="mb-2 text-3xl font-semibold">Customer Feedback</h2>
       <Table>
         <TableHeader>
           <TableRow>
