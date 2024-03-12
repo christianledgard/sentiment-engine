@@ -39,10 +39,30 @@ const LineChartReport = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="sumPositive" stroke="#008000" />
-          <Line type="monotone" dataKey="sumNegative" stroke="#FF0000" />
-          <Line type="monotone" dataKey="sumMixed" stroke="#800080" />
-          <Line type="monotone" dataKey="sumNeutral" stroke="#0000FF" />
+          <Line
+            type="monotone"
+            dataKey="sumPositive"
+            stroke="#008000"
+            name="Positive"
+          />
+          <Line
+            type="monotone"
+            dataKey="sumNegative"
+            stroke="#FF0000"
+            name="Negative"
+          />
+          <Line
+            type="monotone"
+            dataKey="sumMixed"
+            stroke="#800080"
+            name="Mixed"
+          />
+          <Line
+            type="monotone"
+            dataKey="sumNeutral"
+            stroke="#0000FF"
+            name="Neutral"
+          />
         </LineChart>
       </div>
     );
