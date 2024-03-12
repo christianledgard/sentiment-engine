@@ -96,6 +96,28 @@ export const feedbackRouter = createTRPCRouter({
       .sort((a, b) => a.name.localeCompare(b.name));
   }),
 
+  sentimentPerMonth: publicProcedure.query(async ({ ctx }) => {
+    const result = await ctx.db.$queryRaw`
+      SELECT 
+        TO_CHAR("createdAt", 'MM-YYYY') AS month,
+        SUM("sentimentPositive") AS "sumPositive",
+        SUM("sentimentNegative") AS "sumNegative",
+        SUM("sentimentMixed") AS "sumMixed",
+        SUM("sentimentNeutral") AS "sumNeutral"
+      FROM "Feedback"
+      GROUP BY TO_CHAR("createdAt", 'MM-YYYY')
+      ORDER BY TO_CHAR("createdAt", 'MM-YYYY') DESC;
+    `;
+    const typedResult = result as {
+      month: string;
+      sumPositive: number;
+      sumNegative: number;
+      sumMixed: number;
+      sumNeutral: number;
+    }[];
+    return typedResult;
+  }),
+
   deleteFeedbackById: publicProcedure
     .input(
       z.object({
