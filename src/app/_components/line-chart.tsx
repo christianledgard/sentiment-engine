@@ -12,6 +12,7 @@ import {
   Legend,
   Line,
 } from "recharts";
+import { Skeleton } from "~/components/ui/skeleton";
 
 const LineChartReport = () => {
   const { data, isError } = api.feedback.sentimentPerMonth.useQuery();
@@ -46,7 +47,7 @@ const LineChartReport = () => {
       </div>
     );
 
-  return <div>Loading...</div>;
+  return <Skeleton className="h-[300px] w-[600px]" />;
 };
 
 export default LineChartReport;

@@ -96,27 +96,47 @@ export const feedbackRouter = createTRPCRouter({
       .sort((a, b) => a.name.localeCompare(b.name));
   }),
 
-  sentimentPerMonth: publicProcedure.query(async ({ ctx }) => {
-    const result = await ctx.db.$queryRaw`
-      SELECT 
-        TO_CHAR("createdAt", 'MM-YYYY') AS month,
-        SUM("sentimentPositive") AS "sumPositive",
-        SUM("sentimentNegative") AS "sumNegative",
-        SUM("sentimentMixed") AS "sumMixed",
-        SUM("sentimentNeutral") AS "sumNeutral"
-      FROM "Feedback"
-      GROUP BY TO_CHAR("createdAt", 'MM-YYYY')
-      ORDER BY TO_CHAR("createdAt", 'MM-YYYY') DESC;
-    `;
-    const typedResult = result as {
-      month: string;
-      sumPositive: number;
-      sumNegative: number;
-      sumMixed: number;
-      sumNeutral: number;
-    }[];
-    return typedResult;
-  }),
+  sentimentPerMonth: publicProcedure
+    .output(
+      z.array(
+        z.object({
+          month: z.string(),
+          sumPositive: z.string(),
+          sumNegative: z.string(),
+          sumMixed: z.string(),
+          sumNeutral: z.string(),
+        }),
+      ),
+    )
+    .query(async ({ ctx }) => {
+      const result: {
+        month: string;
+        sumPositive: number;
+        sumNegative: number;
+        sumMixed: number;
+        sumNeutral: number;
+      }[] = await ctx.db.$queryRaw`
+        SELECT 
+          TO_CHAR("createdAt", 'MM-YYYY') AS month,
+          SUM("sentimentPositive") AS "sumPositive",
+          SUM("sentimentNegative") AS "sumNegative",
+          SUM("sentimentMixed") AS "sumMixed",
+          SUM("sentimentNeutral") AS "sumNeutral"
+        FROM "Feedback"
+        GROUP BY TO_CHAR("createdAt", 'MM-YYYY')
+        ORDER BY TO_CHAR("createdAt", 'MM-YYYY') DESC;
+      `;
+
+      return result.map((entry) => {
+        return {
+          month: entry.month,
+          sumPositive: entry.sumPositive.toFixed(2),
+          sumNegative: entry.sumNegative.toFixed(2),
+          sumMixed: entry.sumMixed.toFixed(2),
+          sumNeutral: entry.sumNeutral.toFixed(2),
+        };
+      });
+    }),
 
   deleteFeedbackById: publicProcedure
     .input(
