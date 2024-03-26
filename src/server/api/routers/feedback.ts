@@ -124,7 +124,7 @@ export const feedbackRouter = createTRPCRouter({
           SUM("sentimentNeutral") AS "sumNeutral"
         FROM "Feedback"
         GROUP BY TO_CHAR("createdAt", 'MM-YYYY')
-        ORDER BY TO_CHAR("createdAt", 'MM-YYYY') DESC;
+        ORDER BY TO_CHAR("createdAt", 'MM-YYYY') ASC;
       `;
 
       return result.map((entry) => {
